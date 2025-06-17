@@ -147,7 +147,7 @@ q()
 
 then type then following in terminal
 ```
-Rscript /home4/VBG_data/RNASeq/edgeR.r
+/software/R-4.4.1/bin/Rscript /home4/VBG_data/RNASeq/edgeR.r
 ```
 
 Then you will get the output files: **DEG_edgeR.csv**, **cpm.csv** , **bcvplot.pdf**, **VolcanoPlot.png** and **mdsplot.pdf**. Check the output files and explore what they stand for.
