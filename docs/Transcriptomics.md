@@ -132,15 +132,15 @@ Here we use the classical mode of differential expression (DE) analysis in **edg
 You can simply type this command line :
 
 ```
-R
+/software/R-4.4.1/bin/R
 ```
 
-When R opens,
+When R opens,install edgeR (this step could be ignored because edgeR has been installed)
 ```
 BiocManager::install("edgeR")
 ```
 say "yes"
-once installed, type 
+once installed, quit R 
 ```
 q()
 ```
