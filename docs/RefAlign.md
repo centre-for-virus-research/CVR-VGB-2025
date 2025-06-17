@@ -20,7 +20,6 @@ This practical is associated with a lecture on Reference Alignment of High-Throu
 
 * [0: Overview](#0-overview)
 * [1: Setup](#1-setup)
-	+ [1.1: Basic read statistics](#11-basic-read-statistics)
 	+ [1.2: Read quality control](#12-read-quality-control)
 * [2: Read Alignment](#2-read-alignment)
 	+ [2.1: Indexing the reference sequence](#21-indexing-the-reference-sequence)
