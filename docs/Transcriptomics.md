@@ -236,7 +236,7 @@ points(tt$table$logFC[tol10b.depleted], -10*log10(tt$table$PValue[tol10b.deplete
 
 **Task 4**: After running the edgeR code, please check the output files.  How to explore the relationships among samples? How many DE genes do we have? What is the cut-off of the FDR P-value? What are the CPM values?
 
-### 6. Function annotation and pathway analysis (could do it in the next session, "Gene Ontology & Pathway")### 
+### 6. Function annotation and pathway analysis (could go to the Friday session, "Gene Ontology & Pathway") ### 
 Once we get the differential expression gene list, the next step is to annotate them and
 analyse their function and pathways. There are many free online tools available. 
 One of the best-known tools is **David** (https://david.ncifcrf.gov/tools.jsp). 
