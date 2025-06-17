@@ -1,4 +1,4 @@
-# RNA-Seq Workshop
+# RNA-Seq Practical 
 ## Viral Bioinformatics and Genomics Training Course, Glasgow, UK
 #### Contact: [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu/)  , MRC-University of Glasgow Centre for Virus Research, E-mail: quan.gu@glasgow.ac.uk 
 
@@ -8,8 +8,8 @@ A classical RNA-Seq data processing pipeline contains the following steps:
 • Mapping RNA-Seq reads against a reference genome \
 • Visualizing reads and transcript structures \
 • Performing differential expression analysis \
-• Visualizing differential expression analysis (we will introduce more on DE analysis and visualization at Friday's session by **Srikeerthana Kuchi**) \
-• Functional annotation and pathway analysis (we will introduce more detail at Friday session by **Srikeerthana Kuchi**)
+• Visualizing differential expression analysis (we will introduce more on DE analysis and visualization at the session tomorrow) \
+• Functional annotation and pathway analysis (we will introduce more detail at the session tomorrow)
 
 In this course, all the data we are using has been subsampled to save time and space.
 
@@ -132,15 +132,15 @@ Here we use the classical mode of differential expression (DE) analysis in **edg
 You can simply type this command line :
 
 ```
-R
+/software/R-4.4.1/bin/R
 ```
 
-When R opens,
+When R opens,install edgeR (this step could be ignored because edgeR has been installed)
 ```
 BiocManager::install("edgeR")
 ```
 say "yes"
-once installed, type 
+once installed, quit R 
 ```
 q()
 ```
@@ -236,7 +236,7 @@ points(tt$table$logFC[tol10b.depleted], -10*log10(tt$table$PValue[tol10b.deplete
 
 **Task 4**: After running the edgeR code, please check the output files.  How to explore the relationships among samples? How many DE genes do we have? What is the cut-off of the FDR P-value? What are the CPM values?
 
-### 6. Function annotation and pathway analysis (could do it in the next session, "Gene Ontology & Pathway")### 
+### 6. Function annotation and pathway analysis (could go to the session tomorrow) ### 
 Once we get the differential expression gene list, the next step is to annotate them and
 analyse their function and pathways. There are many free online tools available. 
 One of the best-known tools is **David** (https://david.ncifcrf.gov/tools.jsp). 

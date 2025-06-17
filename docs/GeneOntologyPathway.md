@@ -1,6 +1,6 @@
 #### Contact: [Quan Gu](https://www.gla.ac.uk/schools/infectionimmunity/staff/quangu/)  , MRC-University of Glasgow Centre for Virus Research, E-mail: quan.gu@glasgow.ac.uk 
 
-## Introduction
+# GO & Pathway Practical
 
 ### Gene Ontology
 
@@ -53,7 +53,7 @@ We load the necessary packages into R console and use enrichGO() function of clu
 
 ```bash
 # Copy the edgeR output to the current working directory
-cp /home4/VBG_data/RNASeq/DEG_edgeR_Name.csv .
+cp /home4/VBG_data/RNASeq/DEG_edgeR.csv .
 # Copy cpm data into the current working directory
 cp /home4/VBG_data/RNASeq/cpm.csv .
 ```
@@ -89,7 +89,7 @@ library(pathview) # BiocManager::install("pathview")
 ```bash
 
 # Read the edgeR output into R
-df<-read.table("DEG_edgeR_Name.csv",sep=",",row.names = 1,header=T)
+df<-read.table("DEG_edgeR.csv",sep=",",row.names = 1,header=T)
 head(df)
 
 # Count the number of DEG

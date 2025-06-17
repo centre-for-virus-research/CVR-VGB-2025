@@ -20,7 +20,6 @@ This practical is associated with a lecture on Reference Alignment of High-Throu
 
 * [0: Overview](#0-overview)
 * [1: Setup](#1-setup)
-	+ [1.1: Basic read statistics](#11-basic-read-statistics)
 	+ [1.2: Read quality control](#12-read-quality-control)
 * [2: Read Alignment](#2-read-alignment)
 	+ [2.1: Indexing the reference sequence](#21-indexing-the-reference-sequence)
@@ -36,45 +35,6 @@ This practical is associated with a lecture on Reference Alignment of High-Throu
 * [6: Extra data](#6-extra-data)
 * [7: Assembly visualisation with tablet](#7-assembly-visualisation-with-tablet)
  
-# 0: Overview
-
-**YOU DO NOT NEED TO ENTER THE COMMANDS IN THIS OVERVIEW SECTION!**
-
-In this practical, we will be aligning paired end reads to a reference sequence. Commands that you need to enter into the Terminal window (i.e. the command line) are presented in a 'code' box with a different font, like this:
-
-```
-ls
-```
-
-Sometimes a command can be long and may not be fully visible (but the code box is within a scrollpane to aid viewing), but the command should still be entered as one single command on the computer terminal. 
-
-```
-bwa mem -t 4 my_really_long_reference_filename.fasta my_really_log_read_file_1.fastq my_really_long_read_file_2.fastq > my_really_long_output_file.sam
-```
-
-A few Linux tips to remember:
-
-1.	Use the **Tab button** to automatically complete filenames – especially long ones
-2.	Use the **Up Arrow** to scroll through your previous commands, it enables you to easily re-run or re-use/change/correct old commands
-3.	**Case matters**, the following file names are all different:
-
-```
-Myfile.txt
-MyFile.txt
-MYFILE.txt
-myfile.txt
-my file.txt
-my_file.txt
-```
-
-Also watch out for number 1s being confused with lowercase letter L’s, and capital O’s being confused with zeroes
-
-```
-l = lower case letter L
-1 = number one
-O = capital letter O
-0 = zero
-```
 
 # 1: Setup
 
@@ -120,60 +80,6 @@ ls ../Refs
 You should see a file called:
 
 **sars2_ref.fasta**  
-
-## 1.1: Basic read statistics
-
-We will first use a tool called [prinseq](https://prinseq.sourceforge.net) to count the number of reads in each file. As these are paired end reads, there should be one read from each read pair in each file – and hence the same number of reads in each file. We will also use prinseq to output statistics on the read length (just to point out - prinseq itself can do much much more!):
-
-```
-prinseq-lite.pl -stats_info -stats_len -fastq S1_R1.fq -fastq2 S1_R2.fq
-```
-
-***Command breakdown:***
-
-1.	**prinseq-lite.pl** is the name of the program
-2.	**-stats\_info** tells prinseq to output basic stats on the reads (number of reads and bases)
-3.	**-stats\_len** tells prinseq to output basic stats on read lengths (min, max, mean etc)
-4.	**-fastq S1\_R1.fq** the name of the 1st FASTQ file
-5.	**-fastq2 S1\_R2.fq** the name of the 2nd FASTQ file in the pair
-
-### Common Issue
-* A common issue here is not entering the prinseq command on one line in the terminal - you should only use the enter key at the end of the command to execute it.
-* Another common issue is typos - check the command carefully if you get an error - it is likely you have mispelled a file or argument (or even the prinseq program name)
-
-***
-### Questions
-**Question 1** – How many reads and bases are in the read files 1 and 2?
-
-**Question 2** – What is the average (mean) length of the reads? 
-***
-
-The prinseq statistics are split into those for the first FASTQ file of the read pair (e.g. stats\_info, stats\_len, etc) and those for the second FASTQ file of the read pair (e.g. stats\_info2, stats\_len2, etc), and should look a bit like this (but with different numbers!):
-
-```
-stats_info	bases		48000000
-stats_info	reads		320000
-stats_info2	bases		48000000
-stats_info2	reads		320000
-stats_len	max		150
-stats_len	mean		150.00
-stats_len	median		150
-stats_len	min		150
-stats_len	mode		150
-stats_len	modeval		320000
-stats_len	range		1
-stats_len	stddev		0.00
-stats_len2	max		150
-stats_len2	mean		150.00
-stats_len2	median		150
-stats_len2	min		150
-stats_len2	mode		150
-stats_len2	modeval		320000
-stats_len2	range		1
-stats_len2	stddev		0.00 
-```
-
-Paired read files should always have the same number of lines/reads (the ordering of the reads in each file is also critical), so if your two paired files have a different number of reads, something has gone wrong (e.g. filtering/trimming went wrong and corrupted the output, or maybe files from different samples are being used). 
 
 ## 1.2: Read quality control
 
