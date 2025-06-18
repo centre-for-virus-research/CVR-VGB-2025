@@ -40,10 +40,10 @@ for name in ${names[@]}
 do
   echo $name
 done
-
+```
 
 ```bash
-for file in fastq_sets/*.fq
+for file in fastq_data/*.fastq.gz
 do
   echo $file
 done
