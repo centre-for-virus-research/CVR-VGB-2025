@@ -40,7 +40,7 @@ ln -s /home4/VBG_data/RNASeq/IFNb01.fastq .
 ```
 
 We need to make soft links to the reference genome file as well. I have downloaded the genome and GTF files. We could go to RefSeq, Ensembl or UCSC website to download the latest version of the human genome (GRCh38/hg38).
-E.g. You could download the files via Ensembl https://ftp.ensembl.org/pub/
+E.g. You could download the files via Ensembl https://ftp.ensembl.org/pub/ . We will use the same release version (107) as in the publication.
 
 ```
 ln -s /home4/VBG_data/RNASeq/Human.fa .
@@ -147,7 +147,7 @@ q()
 
 then type then following in terminal
 ```
-Rscript /home4/VBG_data/RNASeq/edgeR.r
+/software/R-4.4.1/bin/Rscript /home4/VBG_data/RNASeq/edgeR.r
 ```
 
 Then you will get the output files: **DEG_edgeR.csv**, **cpm.csv** , **bcvplot.pdf**, **VolcanoPlot.png** and **mdsplot.pdf**. Check the output files and explore what they stand for.
