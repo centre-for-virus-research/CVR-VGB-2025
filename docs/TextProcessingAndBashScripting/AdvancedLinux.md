@@ -362,7 +362,7 @@ It won’t complain if the directory already exists — this makes it safe to us
 ---
 
 ### Task 7
-Make a bash script that loops through each file in the `/home4/VBG_data/BashDatasets/fastq_data/`, checks if the file is illumina or nextera based on the name, runs `fastqc` on the files, then runs `trim_galore` and uses the correct parameters based on the filetype.
+Make a bash script that loops through each file in the `/home4/VBG_data/BashDatasets/fastq_data/`, checks if the file is illumina or nextera based on the name, runs `fastqc` on the files, then runs `trim_galore` and uses the correct parameters based on the filetype `--illumina` or `--nextera` [check the manual for trim_galore].
 
 <details>
   <summary>Don't cheat</summary>
