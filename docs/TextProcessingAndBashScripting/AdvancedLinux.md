@@ -35,8 +35,8 @@ done
 Another way of writting the above that is a bit more solid.
 
 ```bash
-names=("Alice" "Bob" "Charlie")
-for name in ${names[@]}
+names=("Alice" "Bob" "Charlie Brown")
+for name in "${names[@]}"
 do
   echo $name
 done
