@@ -32,6 +32,16 @@ do
 done
 ```
 
+Another way of writting the above that is a bit more solid.
+
+```bash
+names=("Alice" "Bob" "Charlie")
+for name in ${names[@]}
+do
+  echo $name
+done
+
+
 ```bash
 for file in fastq_sets/*.fq
 do
