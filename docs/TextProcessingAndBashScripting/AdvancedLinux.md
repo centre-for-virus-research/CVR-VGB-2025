@@ -202,6 +202,21 @@ Make a bash script that uses eith `for` or `while` loop to print the line count 
 <details>
   <summary>Don't cheat</summary>
 
+```bash
+count=0
+for file in *; do
+  echo "File: $file"
+  wc -l $file
+  ((count++))
+  if [[ $count -eq 2 ]]; then
+    break
+  fi
+done
+```
+
+Or
+
+
   ```bash
 #!/bin/bash
 
