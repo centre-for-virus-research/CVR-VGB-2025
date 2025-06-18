@@ -43,7 +43,8 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 6**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
 
-**Question 7**. Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
+**Question 7**.Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
 
+**Question 8**. Bonus question! Why should you be concerned about recombination when doing a phylogenetic analysis? Make a suggestion for some software to use.  
 
 
