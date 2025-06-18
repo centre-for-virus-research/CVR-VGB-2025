@@ -22,6 +22,12 @@ A few tips to remember:
 
 -   Use **Ctrl + r** to reverse search your shell history to find and reuse old commands.
 
+-   **history** to list your command line history
+
+-   **!10** executes line 10 of your command line history again
+
+-   **!:\$** uses the last argument of the most recent command in your bash history again
+
 -   **Case matters.** The following file names are all different:
 
 ```         
