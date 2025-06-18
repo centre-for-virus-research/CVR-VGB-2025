@@ -18,7 +18,7 @@ To complete your analysis the key stages to consider are 1/ sequence alignment, 
 
 **Data**
 
-The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so will take some time to align. To speed things up uou can use the fasta file with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. **Copy files to your own directory.**
+The data set from the Iyer paper is quite large (available at /home4/VBG_data/Phylogenetics on Alpha) so will take some time to align. To speed things up you can use the pre-processed fasta file with fewer sequences (95) from the linked patients CH595 and CH455 that were presented in their figure 1. **Copy files to your own directory.**
 
 **Software**
 
@@ -37,14 +37,14 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 3** What is the main differences between the maximum likelihood methods and the distance-method neighbor joining (e.g., available in CLUSTALW or SeaView)? 
 
-**Question 4**. Why is PhyML, despite being a maximum likelihood method, relatively quick? What improvement would using the software RAxML or IQ-TREE bring to the analysis?
+**Question 4**. Why is PhyML, despite being a maximum likelihood method, relatively quick? What improvement is using the software RAxML or IQ-TREE bring to the analysis?
 
 **Question 5**. Why does the substitution model used matter? What does the software jModelTest used in the Iyer paper do?
 
 **Question 6**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
 
-**Question 7**.Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
+**Question 7**. Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
 
-**Question 8**. Bonus question! Why should you be concerned about recombination when doing a phylogenetic analysis? Make a suggestion for some software to use.  
+**Question 8**. Bonus question! Why should you be concerned about recombination when doing a phylogenetic analysis with virus data? Make a suggestion for some software to use.  
 
 
