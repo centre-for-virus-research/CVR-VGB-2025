@@ -22,9 +22,9 @@ The data set from the Iyer paper is quite large (available at /home4/VBG_data/Ph
 
 **Software**
 
-Trying using the alignment software Muscle or Mafft (type ‘muscle’ or ‘mafft’ on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk to see options). The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that. Alignments, tree methods and visualization can also be carried out with graphical user interface software, for example, SeaView (command: ‘/software/seaview-v5.0.5/seaview’) or UGENE (‘ugene’). 
+Try using the alignment software Mafft or Muscle (type 'mafft filename.fst > filename-mafft-aln' or ‘muscle -align filename.fst -output filename-muscle.aln’ on the command line on the bioinformatics server Alpha2 <alpha2.cvr.gla.ac.uk). The authors used older software, CLUSTALW (commmand ‘clustalw2’ on the command line), have a go using that. Alignments, tree methods and visualization can also be carried out with graphical user interface software, for example, SeaView (command: ‘/software/seaview-v5.0.5/seaview’) or UGENE (‘ugene’). 
 
-To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Now try the software RaXML (command: 'raxml-ng-mpi'). To use PhyML for tree inference, type ‘phyml’ on the command line (or available online at http://www.atgc-montpellier.fr/phyml/). See PhyML’s online helpfile for further guidance on options: http://www.atgc-montpellier.fr/phyml/usersguide.php. Note, PhyML takes PHYLIP formatted alignments which can be generated with CLUSTALW (or use the .ph file in the Data folder). 
+To infer a phylogenetic tree try using the popular software IQ-TREE (command: 'iqtree2 -s filename.ph -m HKY -threads-max 1'). Reflect on the lecture at the beginning of the class to choose appropriate parameters. Now try the software RaXML (command: 'raxml-ng-mpi --threads 1 --model HKY --msa filename.fst'). What are the different options doing? To use PhyML for tree inference, type ‘phyml’ on the command line (or available online at http://www.atgc-montpellier.fr/phyml/). See PhyML’s online helpfile for further guidance on options: http://www.atgc-montpellier.fr/phyml/usersguide.php. Note, PhyML takes PHYLIP formatted alignments which can be generated with CLUSTALW (or use the .ph file in the Data folder). 
 
 FigTree (command: ‘figtree’) is useful for visualizing phylogenetic trees and highlighting specific variants. 
 
@@ -33,15 +33,15 @@ Once you’ve generated some trees answer the questions below:
 
 **Question 1**. Why is it important to be confident the data you're analysing is homologous before starting a phylogenetic analysis? Do the sequences being homologous guarantee a meaningful analysis? 
 
-**Question 2**. Iyer et al. used the methods: *Nucleotide sequences were aligned using CLUSTALW, with ambiguous regions removed. Maximum likelihood trees with bootstrap support (1,000 replicates) were constructed using PhyML.*  Does this change the results in any meaningful way? Does using a different alignment method matter, e.g., MUSCLE, MAFFT versus CLUSTAL versions? 
+**Question 2**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
 
-**Question 3** What is the main differences between the maximum likelihood methods and the distance-method neighbor joining (e.g., available in CLUSTALW or SeaView)? 
+**Question 3**. Iyer et al. used the methods: *Nucleotide sequences were aligned using CLUSTALW, with ambiguous regions removed. Maximum likelihood trees with bootstrap support (1,000 replicates) were constructed using PhyML.*  Does this change the results in any meaningful way? Does using a different alignment method matter, e.g., MUSCLE, MAFFT versus CLUSTAL versions? 
 
-**Question 4**. Why is PhyML, despite being a maximum likelihood method, relatively quick? What improvement is using the software RAxML or IQ-TREE bring to the analysis?
+**Question 4**. What is the main differences between the maximum likelihood methods and the distance-method neighbor joining (e.g., available in CLUSTALW or SeaView)? 
 
-**Question 5**. Why does the substitution model used matter? What does the software jModelTest used in the Iyer paper do?
+**Question 5**. Why is PhyML, despite being a maximum likelihood method, relatively quick? What improvement is using the software RAxML or IQ-TREE bring to the analysis?
 
-**Question 6**. What can you infer from your evolutionary tree about the relationship of virus from the two individuals: CH596 and CH455? What two properties of the phylogenetic tree support this relationship?
+**Question 6**. Why does the substitution model used matter? What does the software jModelTest used in the Iyer paper do?
 
 **Question 7**. Briefly explaining what bootstrapping is doing. How does it contribute to the analysis? 
 
