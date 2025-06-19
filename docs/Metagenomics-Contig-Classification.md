@@ -35,7 +35,7 @@ Here, we are not performing host removal, but it is recommended to speed up the 
 Using Spades, performing de novo assembly of the cleaned reads.
 
 ```
-spades.py --careful -k 21,45,73,101 --only-assembler -1 SRR30229922_1_val_1.fq -2 SRR30229922_2_val_2.fq -o SpadesOut
+spades.py -t 4 --careful -k 21,45,73,101 --only-assembler -1 SRR30229922_1_val_1.fq -2 SRR30229922_2_val_2.fq -o SpadesOut
 ```
 
 
