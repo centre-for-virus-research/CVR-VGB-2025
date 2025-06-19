@@ -171,3 +171,77 @@ abyss-fac *-contigs.fa
 
 ---
 
+## Assembly validation
+
+Download the reference genome sequence and Gene Features File (gff3) from the GenBank database using [Eutils](https://www.ncbi.nlm.nih.gov/books/NBK25500/)
+
+```
+cd ~/DeNovo/SARS-CoV-2/Ref
+esearch -db nuccore -query NC_045512 |efetch -format fasta > SARS-CoV-2.fa
+
+esearch -db nuccore -query NC_045512 |efetch -format gff3 > SARS-CoV-2.gff
+```
+
+Now, go to the Validate folder.
+
+```
+cd ~/DeNovo/SARS-CoV-2/Validate/
+```
+
+
+Let us use quast program to validate the assemblies. (below command is a single line command)
+
+```
+quast.py  -l "Spades, IDBA_UD, Abyss" ../Spades/contigs.fasta ../IDBA_UD/contig.fa ../Abyss/Abyss-contigs.fa -R ../Ref/SARS-CoV-2.fa --genes ../Ref/SARS-CoV-2.gff --reads1 ../SRR21065613_1_val_1.fq --reads2 ../SRR21065613_2_val_2.fq
+```
+
+This will create a directory called `quast_results` and save the results. Open them using Firefox since they are in html format.
+
+```
+firefox quast_results/latest/report.html
+```
+
+**TODO: Can you identify which assembler produced better results? and why? Do you see any misassembled blocks? Which program misassembled the contigs?
+
+
+## Scaffolding of contigs
+
+In this section, we will be doing reference-guided scaffolding of the de novo contigs using the `contigsMerger` program. Each contig is mapped to the reference to find its location and orientation. If there are any overlapping contigs, they will be merged to create longer(super) contigs.
+
+```
+cd ~
+git clone https://github.com/vbsreenu/ContigsMerger.git
+```
+
+Create a separate directory to save the results
+
+```
+mkdir  ~/DeNovo/SARS-CoV-2/GapFilling
+cd ~/DeNovo/SARS-CoV-2/GapFilling
+```
+
+Combine all the contigs into a file and run contigsMerger program.
+
+```
+cat ../Abyss/*-contigs.fa ../Spades/contigs.fasta ../IDBA_UD/contig.fa > all_contigs.fa
+```
+
+```
+~/ContigsMerger/contigsMerger ../Ref/SARS-CoV-2.fa all_contigs.fa N
+```
+
+This will create a super-contig called `combinedContig.fa`, merging all the contigs. Unassembled regions will be filled with ‘N’s.
+
+## Gaps filling
+
+If there are no reads in the dataset that cover a region of the genome, we cannot computationally fill those gaps. However, if you think there are reads covering the entire genome, running different assemblers with varying k-mer sizes should generate contigs that will fill all the gaps. 
+
+Another alternative way to fill the gaps is by taking a gap-filling sequence from a closely related reference sequence. However, after generating a super-contig, reads should be mapped to it, and a consensus sequence should be generated. If there are enough reads in the dataset, the consensus sequence will reflect it.
+
+```
+~/ContigsMerger/contigsMerger ../Ref/SARS-CoV-2.fa all_contigs.fa
+```
+
+This will fill the gaps with the reference sequence. Use the “combinedContig.fa” sequence as a reference and map reads using bwa mem. Check the assembly in “tablet” for any indels or mismatches around gap regions.
+
+
