@@ -272,3 +272,24 @@ I hope you've managed to pick-up some of the advantages of manipulating data and
 
 If time allows, use the file in `/home4/VBG_data/Rplotting/depth.txt` to plot the coverage. The file was produced using `samtools depth`. The file doesn't have a header but the first column is the name of the reference sequence used, the second column is the position in the reference sequence and the thrid column is the depth.
 
+### 6. Extra info on Rscripts and command line arguments
+
+Do you remember how we use names of files on the command line to feed it into the bash script using `$1` and `$2`. `R` has something similar using the function `commandArgs()`. So we change the first plot to be able to run it directly from the command line. The Rscript which we can call `myfirstplot.r` would look as follows:
+
+``` r
+require(tidyverse)
+require(ggplot2)
+args<-commandArgs(trailingOnly=TRUE)
+cog_data = read.csv(file= args[1], header = TRUE )
+
+per_country_count<-cog_data %>% count(country) %>% filter(n > 100)
+ggplot() +
+  geom_bar( data = per_country_count, aes( x = country, y = n ), stat="identity" )
+ggsave("seq_per_country_fromRscript.pdf")
+```
+
+And you would then run the Rscript on the command line as follows specifying the input file:
+
+``` bash
+Rscript myfirstplot.r cog_global_2020-12-09_public.csv
+```
