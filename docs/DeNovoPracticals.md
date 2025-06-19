@@ -54,7 +54,7 @@ cd ~/DeNovo/SARS-CoV-2/Spades
 
 Run spades assembly program with different k-mer sizes.
 ```
-spades.py -t 6 --careful -k 21,45,73,101 --only-assembler -1 ../SRR21065613_1_val_1.fq -2 ../SRR21065613_2_val_2.fq -o .
+spades.py -t 4 --careful -k 21,45,73,101 --only-assembler -1 ../SRR21065613_1_val_1.fq -2 ../SRR21065613_2_val_2.fq -o .
 ```
 
 Here,
