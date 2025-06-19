@@ -169,6 +169,10 @@ To get the assembly stats, run
 abyss-fac *-contigs.fa
 ```
 
+Here is the interpretation of these stats
+
+https://github.com/bcgsc/abyss/wiki/ABySS-File-Formats#stats
+
 ---
 
 ## Assembly validation
