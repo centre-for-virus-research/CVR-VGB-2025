@@ -70,3 +70,17 @@ firefox SRR30229922.html
 ```
 
 What does the Krona plot tell? Do you find any bacteria in the sample? What are the different viruses that you see in the sample, and what is your take on them?
+
+
+Please use these samples to check your pipeline.
+
+```
+cp /home3/bvv2t/Data-Sreenu/Metagenomics/SRR29970413_?.fq .
+```
+
+and
+
+```
+cp /home3/bvv2t/Data-Sreenu/Metagenomics/SRR29970403_?.fq .
+```
+
