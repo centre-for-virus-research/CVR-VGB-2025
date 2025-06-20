@@ -28,14 +28,20 @@ echo "trim file 1 = $trim1"
 echo "trim file 2 = $trim2"
 
 bwa index $ref
-bwa mem -t 4 $ref $trim1 $trim2 > $samplename.sam
+bwa mem -t 4 $ref $trim1 $trim2 > $samplename.sam 
 
 samtools sort $samplename.sam -o $samplename.bam
 samtools index $samplename.bam
 rm $samplename.sam
 
-samtools view -c -f4 $samplename.bam
-samtools view -c -F2308 $samplename.bam
+rm ${samplename}_log.txt
+touch ${samplename}_log.txt
+
+echo "unmappedreads=" >> ${samplename}_log.txt
+samtools view -c -f4 $samplename.bam >> ${samplename}_log.txt
+
+echo "mappedreads=" >> ${samplename}_log.txt
+samtools view -c -F2308 $samplename.bam >> ${samplename}_log.txt
 
 weeSAM --bam $samplename.bam --html $samplename --overwrite
 
