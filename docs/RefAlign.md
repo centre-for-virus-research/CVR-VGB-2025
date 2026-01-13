@@ -239,18 +239,19 @@ samtools idxstats S1.bam
 ```
 idxstats will give you the number of mapped read alignments for **every** reference sequence used - so you will have more than one line if your reference was say a segmented virus. The fields outputted are:
 
-1. Reference name - the last line outputted is always called '*' and represents unmapped reads - but only reads where both members of a pair are unrecorded here
+1. Reference name - the last line outputted is always called * and represents unmapped reads, but only reads where **both** members of a pair are unmapped are recorded here
 2. Reference length
 3. Number of mapped read alignments (NB - this is not reads, this is read alignments i.e. F4 not F2308 - see above)
 4. Number of unmapped reads - this often confuses people - this is unmapped reads where the other member of the pair did map
 
 **NB:** to get the total number of mapped reads from idxstats - you would have to sum up the values in the 4th column
 **NB:** for single end data the 4th column (representing unmapped) will only have a value on the last line (ref = *) as there are no pairs
+**NB:** the doc page is here: [https://www.htslib.org/doc/samtools-idxstats.html](https://www.htslib.org/doc/samtools-idxstats.html)
 
 ```
 samtools flagstat S1.bam
 ````
-flagstat will produce various QC metrics on the BAM file as a whole (not per reference) - such as number of reads in total and the number of mapped read alignments, secondary alignments, supplementary alignments etc.
+flagstat will produce various QC metrics on the BAM file as a whole (not per reference) - such as number of reads in total and the number of mapped read alignments, secondary alignments, supplementary alignments etc. The doc page is here: [https://www.htslib.org/doc/samtools-flagstat.html](https://www.htslib.org/doc/samtools-flagstat.html)
 
 
 ## 2.5: Coverage plots
