@@ -227,16 +227,32 @@ So to get the true number of mapped reads you need to count only the alignments 
 ### Number of mapped reads
 
 ```
-samtools view -c -F4 -F256 -F2048 S1.bam
-```
-
-or summing up the F flag values together:
-
-```
 samtools view -c -F2308 S1.bam
 ```
 
 For small RNA viruses, secondary and supplementary alignments tend to be rare, but it is important to know the distinction between mapped **reads** and mapped read **alignments**.
+
+Two (of the many) useful functions of samtools are idxstats and flagstat.
+
+```
+samtools idxstats S1.bam
+```
+idxstats will give you the number of mapped read alignments for every reference sequence - so you will have more than one line if you have say a segmented virus. The fields outputted are:
+
+1. Reference name - the last line is always called '*' and represents unmapped reads - but only reads where both members of a pair are unrecorded here
+2. Reference length
+3. Number of mapped read alignments (NB - this is not reads, this is read alignments i.e. F4 not F2308 - see above)
+4. Number of unmapped reads - this often confuses people - this is unmapped reads where the other member of the pair did map
+
+```
+samtools flagstat S1.bam
+````
+flagstat will produce various QC metrics on the BAM file as a whole (not per reference) - such as number of mapped read alignments, secondary, supplementary etc
+
+
+
+
+
 
 ## 2.5: Coverage plots
 
