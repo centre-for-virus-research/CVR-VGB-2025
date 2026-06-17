@@ -336,7 +336,7 @@ We need to open the barcode13_screen.png or barcode13_screen.txt to see the grap
 
 ## Nextflow and ViralRecon
 
-**What is nextflow?** Nextflow is a framework for building and running reproducible bioinformatics pipelines, allowing multi-step analyses to be executed consistently across laptops, HPC clusters, and cloud systems. Nextflow is software for orchestrating multi-step analyses. It knows which tasks depend on each other, runs independent tasks in parallel, and ensures the correct software is available for each step. However, an analysis pipeline needs to be written in Nextflow from the start. Nextflow is written primarily in Groovy, which is a language that runs on the Java Virtual Machine (JVM).
+**What is nextflow?** Nextflow is a framework for building and running reproducible bioinformatics pipelines, allowing multi-step analyses to be executed consistently across laptops, HPC clusters, and cloud systems. Nextflow is software for orchestrating multi-step analyses. It knows which tasks depend on each other, runs independent tasks in parallel, and ensures the correct software is available for each step. Nextflow pipelines are written specifically for the Nextflow framework. Existing bash pipelines cannot simply be run inside Nextflow; they generally need to be rewritten as Nextflow workflows. Nextflow is written primarily in Groovy, which is a language that runs on the Java Virtual Machine (JVM).
 * [https://www.nextflow.io](https://www.nextflow.io)
 
 **What is ViralRecon?** Viralrecon is an nf-core/Nextflow pipeline for analysing viral sequencing data. It automates the process of turning raw sequencing reads into consensus genomes, variant calls, and quality-control reports.
@@ -352,7 +352,7 @@ We need to open the barcode13_screen.png or barcode13_screen.txt to see the grap
 * nf-core/mag -> Metagenome assembly and binning
 * nf-core/taxprofiler -> Metagenomic taxonomic classification
 
-To install viralrecon we need to create a new environment, we can tell mamba what packages we want installed at the same time as well:
+To install viralrecon we need to create a new mamba environment, we can tell mamba what packages we want installed at the same time as well:
 
 ```
 mamba create -n viralrecon -c conda-forge -c bioconda nextflow nf-core
@@ -372,17 +372,46 @@ export NXF_VER=25.04.7
 export NXF_SYNTAX_PARSER=v1
 ```
 
+If you list the contents of the directory (we should still be in ~/Condata) you will files relating to dengue virus for running with viralrecon:
+* deng3.fasta -> a dengue virus genotype 3 reference sequence in FASTA format
+* deng_S1_R1.fq.gz & deng_S1_R2.fq.gz -> illumina paired end FASTQ reads for sample 1 (S1), gzipped
+* deng_S2_R1.fq.gz & deng_S2_R2.fq.gz  -> illumina paired end FASTQ reads for sample 2 (S2), gzipped
 
-READS MUST BE GZIPPED!!!!
-
+If we next examine the **sample-sheet.csv**, this is central to running viralrecon. It tells the pipeline how many samples we want processed, what to call the output files, and what the input fastq files are. An important prerequisite for analysing FASTQ reads with viralrecon is that the reads must be **gzipped**:
 
 ```
-nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_multiqc --skip_assembly --skip_quast
+cat sample-sheet.csv
 ```
 
+Viralrecon can do an absolutely diverse range of things and produce an enormous amount of output. Here we have a simple reference alignment of two samples. The samples are dengue virus so not SARS-CoV-2 (so we can skip SARS-CoV-2 functions: --skip_freyja --skip_pangolin --skip_nextclade), are illumina (--platform illumina), are shotgun not amplicon (--protocol metagenomic), we have a suitable reference sequence (--fasta deng3.fasta), and we want to run reference alignment only with no metaegnomic analyses (so we can skip --skip_kraken2 --skip_assembly --skip_quast), and for speed we'll skip multiqc at the end (--skip_multiqc). We need to run it via conda (-profile conda) rather than docker - docker is probably better and quicker, but it wont work well for us on the system we are using. As viralrecon can do a diverse range of things, the commands can be long as you need to tell it exactly what you want and don't want to do:
 
-In metagenomic Illumina mode, viralrecon aligns reads to the reference genome using Bowtie2 in --very-sensitive-local mode, allowing partial read alignments and soft clipping of low-quality or non-matching sequence at read ends.
+```
+nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_assembly --skip_quast --skip_multiqc 
+```
 
+When it runs, it will list all the steps that it is going to run and constantly update on their progress, at the end you should see a message in green that says something like the below before your command prompt returns:
+
+```
+Duration    : 4m 57s
+CPU hours   : 0.1
+Succeeded   : 34
+```
+
+If we list the contents of the directroy now, we should see two important folders - **work** and **results**:
+
+```
+ls
+```
+
+The **work** folder is Nextflow’s cache and working area, where lots of intermediate files are kept. If you think the run has completed successfully you can delete this folder, if the run failed midway there is a usefull --resume function with nextflow where it can attempt to pick up where it left off (if the files are still there).
+
+The **results** folder is where the results are:
+
+```
+cd results
+
+ls
+```
 
 
 
