@@ -183,7 +183,7 @@ seqtk is a really useful program that can do a range of FASTQ/FASTA file manipul
 ```
 cd
 
-cp -r /home4/VBG_Data/Condata .
+cp -r /home4/VBG_data/Condata .
 
 cd Condata
 
