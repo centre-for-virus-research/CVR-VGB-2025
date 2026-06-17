@@ -267,12 +267,56 @@ If we examine the clusters we should see atleast one represenative for each sero
 grep ">" clustered_fmdv.fasta
 ```
 
-## Qualimap
+## Git and cloning - fastq_screen
+
+As amazing as conda/bioconda are, many bioinformatics tools are not available there. However, they may be available on [GitHub](https://github.com). GitHub is a web-based platform for hosting and collaborating on software projects that use Git, a version control system. 
+
+A GitHub repository (usually called a repo) is a project folder stored on GitHub that contains files, code, documentation, and the complete history of changes made to those files. You can download a repo manually, for example, go to [https://github.com/centre-for-virus-research/CVR-Course-2026](https://github.com/centre-for-virus-research/CVR-Course-20260), click on the green "<> Code" button and then select Download ZIP. However, you can also download it via the command line using the 'git clone' command - a git command that copies an entire repository from GitHub to your computer.
+
+First we need to install git itslef into our environment
 
 ```
-mamba install -c bioconda qualimap
+mamba install -c conda-forge git
 ```
 
+**Confirm changes: [Y/n]** -> Type **Y** then press Enter
+
+We will now try to download a simple tool called [FastQ_screen](https://github.com/StevenWingett/FastQ-Screen) via the command line using git. FastQ screen is a simple application which allows you to search a FASTQ dataset against a panel of different reference sequences to build up a picture of where the sequences in your data originate. FastQ screen can be used to query a FASTQ samples against a panel of hosts, common contaminants, or even viruses.
+
+In order to clone a GitHub repo we first need it's address which can be found when clicking the green "<> Code" button on the repo. In our case the address is: **https://github.com/StevenWingett/FastQ-Screen.git**
+
+```
+git clone https://github.com/StevenWingett/FastQ-Screen.git
+```
+
+If we now list the contents of our directory we should see a new **FastQ-Screen** directory:
+
+```
+ls
+```
+
+In the case of Fastq screen, the program comes ready to use (there is fastq_screen executable in the folder) - but not all tools are as easy as this too install and can require compilation and/or installation of other tools that it is dependent on - hence why conda/mamba are so useful.
+
+However, it we try to run fastq_screen now we would get an error:
+
+```
+fastq_screen
+```
+
+
+
+This is because the computer does not know where to find fastq_screen. We could add the FastQ-Screen folder into our path in our profile files, but as a quick fix we will create an alias:
+
+```
+fastq_screen is aliased to `/home/youruser/Condata/FastQ-Screen/fastq_screen`
+```
+
+```
+fastq_screen: command not found
+
+```
+https://github.com/centre-for-virus-research/CVR-Course-2026.git
+```
 
 ## Nextflow and ViralRecon
 
@@ -328,6 +372,8 @@ mamba install -c bioconda minimap2 htslib nanoplot assembly-stats ivar
 Not all tools are on conda:
 
 ```
+pip install matplotlib
+
 install git
 
 download weeSam
