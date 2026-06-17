@@ -119,7 +119,7 @@ mamba create -n test-env
 
 You should see a message that says: **Empty environment created at prefix: /home4/courseNN/miniforge3/envs/test-env**
 
-In order to use an environment we need to **activate** it, slightly confusingly althouhg we use mamba to create and install things, we use conda to activate and deactivate environments:
+In order to use an environment we need to **activate** it, slightly confusingly althouhg we use mamba to create and install things, we use conda to activate and deactivate environments. Activating an environment modifies your PATH so that executables inside that environment are found before system-wide software.:
 
 ```
 conda activate test-env
@@ -232,7 +232,7 @@ cd-hit
 If you list the contents of the directory you should see a file called **all_fmdv.fasta**, lets first count the number of seqs in it:
 
 ```
-grep -c ">" all_fdmv.fasta
+grep -c ">" all_fmdv.fasta
 ```
 
 Now lets run cd-hit, as these are nucleotide sequences we need to use the **cd-hit-est** script of cd-hit. We are going to cluster the sequences down using a thrshold of 95% sequence identity, with cd-hit choosing a single sequence to representative each cluster (typically the longest sequence), and output the reduced sequences into a new fasta file:
@@ -319,6 +319,7 @@ As fastq_screen has not be installed into a common place, we need to tell the co
 ```
 perl FastQ-Screen/fastq_screen
 ```
+**NB:** Running the script through perl ensures it uses the Perl from the current Conda environment.
 
 Now we are ready to use fastq_screen, if you list the directory contents you should see (1) a FASTQ file called **barcode13.fastq** and (2) a fastq_screen configuration file called **fastq_screen.conf** which I previously made which points to four different viral reference sequences (A) SARS2; (B) EMCV; (C) FLU and (D) MEASLES. We now run fastq_screen using this configuration file on barcode13.fastq:
 
@@ -382,13 +383,13 @@ mamba install -c bioconda minimap2 htslib nanoplot assembly-stats ivar
 Now we need to install one of the most important tools for nanopore sequencing - medaka. We do not install this via mamba as the developers recommend installing through pip (the package installer for python):
 
 ```
-pip install medaka
+python -m pip install medaka
 ```
 
 And also one extra pip package for plotting by another tool:
 
 ```
-pip install matplotlib
+python -m pip install matplotlib
 ```
 
 Now lets check medaka works by typing:
