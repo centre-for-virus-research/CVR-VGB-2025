@@ -75,7 +75,7 @@ To:
 
 **(base) courseNN@alpha2:~$**
 
-Notice the extra **(base)**, this means that we are now located in the base enviroment of our new conda miniforge installation. When you login your are automatically in the base environment.
+Notice the extra **(base)**, this means that we are now located in the base environment of our new conda miniforge installation. When you login your are automatically in the base environment.
 
 We have one more good practice configuration step to do before we start creating our own environments and installing tools and that is to add a few channels and set the priority order:
 
@@ -124,7 +124,7 @@ mamba create -n test-env
 
 You should see a message that says: **Empty environment created at prefix: /home4/courseNN/miniforge3/envs/test-env**
 
-In order to use an environment we need to **activate** it, slightly confusingly althouhg we use mamba to create and install things, we use conda to activate and deactivate environments. Activating an environment modifies your PATH so that executables inside that environment are found before system-wide software.:
+In order to use an environment we need to **activate** it, slightly confusingly although we use mamba to create and install things, we use conda to activate and deactivate environments. Activating an environment modifies your PATH so that executables inside that environment are found before system-wide software.:
 
 ```
 conda activate test-env
@@ -141,12 +141,12 @@ To:
 
 ## Quick Recap
 
-We have now installed the miniforge version of conda/mamba and configured our channels - you only need to do this once. We have now created and activated our first enviroment called **test-env** and are ready to install some tools/packages
+We have now installed the miniforge version of conda/mamba and configured our channels - you only need to do this once. We have now created and activated our first environment called **test-env** and are ready to install some tools/packages
 
 
 ## Installing our first tool - seqtk
 
-Bioconda maintains a website list of avaialable packages/tools to install: [https://bioconda.github.io/conda-package_index.html](https://bioconda.github.io/conda-package_index.html)
+Bioconda maintains a website list of available packages/tools to install: [https://bioconda.github.io/conda-package_index.html](https://bioconda.github.io/conda-package_index.html)
 
 The first tool we are going to install is called [seqtk](https://github.com/lh3/seqtk). This is not currently installed on our server, we can check by typing:
 
@@ -181,7 +181,7 @@ A useful command for seeing where a program is actually installed on Linux is th
 which seqtk
 ```
 
-You should see something like: **/home4/courseNN/miniforge3/envs/test-env/bin/seqtk** which means seqtk is in the bin folder, of the test-env environemnt, in the envs (enviroments) folder of the miniforge3 folder in our home directory.
+You should see something like: **/home4/courseNN/miniforge3/envs/test-env/bin/seqtk** which means seqtk is in the bin folder, of the test-env environemnt, in the envs (environments) folder of the miniforge3 folder in our home directory.
 
 seqtk is a really useful program that can do a range of FASTQ/FASTA file manipulations, I use it alot for subsampling reads so lets try that. First we need to copy some example data, so lets do that:
 
@@ -240,12 +240,12 @@ If you list the contents of the directory you should see a file called **all_fmd
 grep -c ">" all_fmdv.fasta
 ```
 
-Now lets run cd-hit, as these are nucleotide sequences we need to use the **cd-hit-est** script of cd-hit. We are going to cluster the sequences down using a thrshold of 95% sequence identity, with cd-hit choosing a single sequence to representative each cluster (typically the longest sequence), and output the reduced sequences into a new fasta file:
+Now lets run cd-hit, as these are nucleotide sequences we need to use the **cd-hit-est** script of cd-hit. We are going to cluster the sequences down using a threshold of 95% sequence identity, with cd-hit choosing a single sequence to representative each cluster (typically the longest sequence), and output the reduced sequences into a new fasta file:
 
 ```
 cd-hit-est -i all_fmdv.fasta -o clustered_fmdv.fasta -c 0.95 -aS 1.0 -aL 0.0 -T 4
 ```
-* cd-hit-est - the name of the program for cd-hit clustering of nucleotide sequneces
+* cd-hit-est - the name of the program for cd-hit clustering of nucleotide sequences
 * -i all_fmdv.fasta - the name of the input fasta sequence file
 * -o clustered_fmdv.fasta - the name of the output file to create
 * -c 0.95 - the clustering threshold: 0.95 = 95%
@@ -253,7 +253,7 @@ cd-hit-est -i all_fmdv.fasta -o clustered_fmdv.fasta -c 0.95 -aS 1.0 -aL 0.0 -T 
 * -aL 0.0 - no coverage requirement on the longer sequence
 * -T 4 - use 4 threads
 
-When cd-hit finishes, it should report things like total seqs, longest and shortest seqs, and imporantly number of clusters. You should see something like:
+When cd-hit finishes, it should report things like total seqs, longest and shortest seqs, and importantly number of clusters. You should see something like:
 
 **923  finished        278  clusters**
 
@@ -324,7 +324,7 @@ As fastq_screen has not be installed into a common place, we need to tell the co
 ```
 perl FastQ-Screen/fastq_screen
 ```
-**NB:** Running the script through perl ensures it uses the Perl from the current Conda environment.
+**NB:** Running the script through perl ensures FastQ Screen uses the Perl interpreter from the active Conda environment, rather than the system Perl installation.
 
 Now we are ready to use fastq_screen, if you list the directory contents you should see (1) a FASTQ file called **barcode13.fastq** and (2) a fastq_screen configuration file called **fastq_screen.conf** which I previously made which points to four different viral reference sequences (A) SARS2; (B) EMCV; (C) FLU and (D) MEASLES. We now run fastq_screen using this configuration file on barcode13.fastq:
 
@@ -383,7 +383,7 @@ If we next examine the **sample-sheet.csv**, this is central to running viralrec
 cat sample-sheet.csv
 ```
 
-Viralrecon can do an absolutely diverse range of things and produce an enormous amount of output. Here we have a simple reference alignment of two samples. The samples are dengue virus so not SARS-CoV-2 (so we can skip SARS-CoV-2 functions: --skip_freyja --skip_pangolin --skip_nextclade), are illumina (--platform illumina), are shotgun not amplicon (--protocol metagenomic), we have a suitable reference sequence (--fasta deng3.fasta), and we want to run reference alignment only with no metaegnomic analyses (so we can skip --skip_kraken2 --skip_assembly --skip_quast), and for speed we'll skip multiqc at the end (--skip_multiqc). We need to run it via conda (-profile conda) rather than docker - docker is probably better and quicker, but it wont work well for us on the system we are using. As viralrecon can do a diverse range of things, the commands can be long as you need to tell it exactly what you want and don't want to do:
+Viralrecon can do an absolutely diverse range of things and produce an enormous amount of output. Here we have a simple reference alignment of two samples. The samples are dengue virus so not SARS-CoV-2 (so we can skip SARS-CoV-2 functions: --skip_freyja --skip_pangolin --skip_nextclade), are illumina (--platform illumina), are shotgun not amplicon (--protocol metagenomic), we have a suitable reference sequence (--fasta deng3.fasta), and we want to run reference alignment only with no metagenomic analyses (so we can skip --skip_kraken2 --skip_assembly --skip_quast), and for speed we'll skip multiqc at the end (--skip_multiqc); -process.cpus limits the number of CPU cores that a single task can use, while -process.maxForks limits how many tasks Nextflow can run simultaneously. Overall, we need to run viralrecon via conda (-profile conda) rather than docker - docker is probably better and quicker, but it wont work well for us on the system we are using. As viralrecon can do a diverse range of things, the commands can be long as you need to tell it exactly what you want and don't want to do:
 
 ```
 nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_assembly --skip_quast --skip_multiqc 
@@ -397,13 +397,13 @@ CPU hours   : 0.1
 Succeeded   : 34
 ```
 
-If we list the contents of the directroy now, we should see two important folders - **work** and **results**:
+If we list the contents of the directory now, we should see two important folders - **work** and **results**:
 
 ```
 ls
 ```
 
-The **work** folder is Nextflow’s cache and working area, where lots of intermediate files are kept. If you think the run has completed successfully you can delete this folder, if the run failed midway there is a usefull --resume function with nextflow where it can attempt to pick up where it left off (if the files are still there).
+The **work** folder is Nextflow’s cache and working area, where lots of intermediate files are kept. The work folder can often be much larger than the final results folder because it contains intermediate files and cached task outputs. Once you are happy with the results and no longer need to use -resume, it can safely be deleted to reclaim disk space.
 
 The **results** folder is where the results are:
 
@@ -429,7 +429,7 @@ First lets exit our **test-env** environment:
 conda deactivate
 ```
 
-and now lets create a new enviroment called nanopore-env, this time we need to specify a certain version of python to use as one of the nanopore tools works best with that:
+and now lets create a new environment called nanopore-env, this time we need to specify a certain version of python to use as one of the nanopore tools works best with that:
 
 ```
 mamba create -n nanopore-env python=3.12
