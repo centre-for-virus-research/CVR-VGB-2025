@@ -1,3 +1,8 @@
+# README
+
+Before installing conda/mamba on a server you should talk to your local system administrator for advice, as different systems have different ways of working, and different permissions. If installing on your own laptop or desktop - make a backup of any critical data first, just in case anything goes wrong.
+
+
 # Conda
 
 [Conda](https://anaconda.org) is a package and environment manager that is widely used in bioinformatics, data science, and scientific computing. It is a tool that is capable of:
@@ -347,16 +352,41 @@ We need to open the barcode13_screen.png or barcode13_screen.txt to see the grap
 * nf-core/mag -> Metagenome assembly and binning
 * nf-core/taxprofiler -> Metagenomic taxonomic classification
 
-
-
+To install viralrecon we need to create a new environment, we can tell mamba what packages we want installed at the same time as well:
 
 ```
 mamba create -n viralrecon -c conda-forge -c bioconda nextflow nf-core
 ```
+**Confirm changes: [Y/n]** -> Type **Y** then press Enter
+
+Now lets activate the new environment:
 
 ```
 conda activate viralrecon
 ```
+
+We now need to set some specific Nextflow (NXF) settings. These force Nextflow to use a specific version and syntax parser to ensure compatibility with the viralrecon workflow, which was developed and tested with an older version of Nextflow than the one installed by default.
+
+```
+export NXF_VER=25.04.7
+export NXF_SYNTAX_PARSER=v1
+```
+
+
+READS MUST BE GZIPPED!!!!
+
+
+```
+nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_multiqc --skip_assembly --skip_quast
+```
+
+
+In metagenomic Illumina mode, viralrecon aligns reads to the reference genome using Bowtie2 in --very-sensitive-local mode, allowing partial read alignments and soft clipping of low-quality or non-matching sequence at read ends.
+
+
+
+
+
 
 
 
