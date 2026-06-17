@@ -391,14 +391,20 @@ And also one extra pip package for plotting by another tool:
 pip install matplotlib
 ```
 
-Now lets check medaka works by typ9ng:
+Now lets check medaka works by typing:
+
+```
+which medaka_consensus
+```
+
+Which should point to somewere like /home4/courseNN/miniforge3/envs/nanopore-env2/bin/medaka_consensus, and finally type:
 
 ```
 medaka_consensus
 ```
+Which should produce the medaka consensus help info - you can ignore any messages about 'Cannot import pyabpoa, some features may not be available.'
 
 We are now ready to start analysing some nanopore data.
-
 
 
 
