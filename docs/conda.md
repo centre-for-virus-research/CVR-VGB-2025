@@ -122,12 +122,12 @@ To:
 **(test-env) courseNN@alpha2:~$**
 
 
-## Recap
+## Quick Recap
 
 We have now installed the miniforge version of conda/mamba and configured our channels - you only need to do this once. We have now created and activated our first enviroment called **test-env** and are ready to install some tools/packages
 
 
-## Installing tools
+## Installing our first tool
 
 Bioconda maintains a website list of avaialable packages/tools to install: [https://bioconda.github.io/conda-package_index.html](https://bioconda.github.io/conda-package_index.html)
 
@@ -185,13 +185,45 @@ seqtk sample -s 1234 fmdv.fastq 10000 > fmdv_sub.fastq
 ```
 **NB:** here the -s 1234 is a seed we are giving to the random number generator - you could use any number
 
-If we now cant the number of lines in each of the FASTQ files you should see that the new fmdv_sub.fastq file has 40,000 lines corresponding to 10,000 reads:
+If we now count the number of lines in each of the FASTQ files you should see that the new fmdv_sub.fastq file has 40,000 lines corresponding to 10,000 reads:
 
 ```
 wc -l fmdv.fastq
 
 wc -l fmdv_sub.fastq
 ```
+
+## cd-hit
+
+Now lets install another really useful tool called **cd-hit**. CD-HIT (Cluster Database at High Identity with Tolerance) clusters DNA, RNA, or protein sequences based on sequence identity. It is commonly used to remove redundancy, dereplicate datasets, identify representative sequences, and reduce computational burden before downstream analyses.
+
+```
+mamba install -c bioconda cd-hit
+```
+
+It will again ask you: **Confirm changes: [Y/n]** -> Type **Y** then press Enter
+
+Check the program works:
+
+```
+which cd-hit
+```
+
+You should see something like: **/home4/courseNN/miniforge3/envs/test-env/bin/cd-hit**
+
+Now launch the cd-hit help function to check its working:
+
+```
+cd-hit
+```
+
+If you list the contents of the directory you should see a file called **all_fmdv.fasta**, lets first count the number of seqs in it:
+
+```
+grep -c ">" all_fdmv.fasta
+```
+
+Now lets run cd-hit, as these are nucleotide sequences we need to use the cd-hit-est script of cd-hit. We are going to cluster the sequences down using a thrshold of 95% sequence identity. cd-
 
 
 
