@@ -383,10 +383,10 @@ If we next examine the **sample-sheet.csv**, this is central to running viralrec
 cat sample-sheet.csv
 ```
 
-Viralrecon can do an absolutely diverse range of things and produce an enormous amount of output. Here we have a simple reference alignment of two samples. The samples are dengue virus so not SARS-CoV-2 (so we can skip SARS-CoV-2 functions: --skip_freyja --skip_pangolin --skip_nextclade), are illumina (--platform illumina), are shotgun not amplicon (--protocol metagenomic), we have a suitable reference sequence (--fasta deng3.fasta), and we want to run reference alignment only with no metagenomic analyses (so we can skip --skip_kraken2 --skip_assembly --skip_quast), and for speed we'll skip multiqc at the end (--skip_multiqc); -process.cpus limits the number of CPU cores that a single task can use, while -process.maxForks limits how many tasks Nextflow can run simultaneously. Overall, we need to run viralrecon via conda (-profile conda) rather than docker - docker is probably better and quicker, but it wont work well for us on the system we are using. As viralrecon can do a diverse range of things, the commands can be long as you need to tell it exactly what you want and don't want to do:
+Viralrecon can do an absolutely diverse range of things and produce an enormous amount of output. Here we have a simple reference alignment of two samples. The samples are dengue virus so not SARS-CoV-2 (so we can skip SARS-CoV-2 functions: --skip_freyja --skip_pangolin --skip_nextclade), are illumina (--platform illumina), are shotgun not amplicon (--protocol metagenomic), we have a suitable reference sequence (--fasta deng3.fasta), and we want to run reference alignment only with no metagenomic analyses (so we can skip --skip_kraken2 --skip_assembly --skip_variants_quast --skip_assembly_quast), and for speed we'll skip multiqc at the end (--skip_multiqc); -process.cpus limits the number of CPU cores that a single task can use, while -process.maxForks limits how many tasks Nextflow can run simultaneously. Overall, we need to run viralrecon via conda (-profile conda) rather than docker - docker is probably better and quicker, but it wont work well for us on the system we are using. As viralrecon can do a diverse range of things, the commands can be long as you need to tell it exactly what you want and don't want to do:
 
 ```
-nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_assembly --skip_quast --skip_multiqc 
+nextflow run nf-core/viralrecon -r 3.0.0 -profile conda --input sample-sheet.csv --outdir results --protocol metagenomic --platform illumina --fasta deng3.fasta --variant_caller ivar --consensus_caller ivar -process.cpus 2 -process.maxForks 2 --skip_freyja --skip_pangolin --skip_nextclade --skip_kraken2 --skip_assembly --skip_variants_quast --skip_assembly_quast --skip_multiqc 
 ```
 
 When it runs, it will list all the steps that it is going to run and constantly update on their progress, at the end you should see a message in green that says something like the below before your command prompt returns:
@@ -413,7 +413,10 @@ cd results
 ls
 ```
 
-
+* **results/variants/bowtie2/** -> bowtie2 BAM files
+* **results/variants/bowtie2/mosdepth/genome/** -> coverage.pdf coverage plots
+* **results/variants/bowtie2/samtools_stats/** -> various read stats
+* **results/variants/ivar/consensus/ivar/** -> ivar consensus.fa seqeunces
 
 
 
