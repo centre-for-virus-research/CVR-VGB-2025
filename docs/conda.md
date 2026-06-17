@@ -127,7 +127,7 @@ To:
 We have now installed the miniforge version of conda/mamba and configured our channels - you only need to do this once. We have now created and activated our first enviroment called **test-env** and are ready to install some tools/packages
 
 
-## Installing our first tool
+## Installing our first tool - seqtk
 
 Bioconda maintains a website list of avaialable packages/tools to install: [https://bioconda.github.io/conda-package_index.html](https://bioconda.github.io/conda-package_index.html)
 
@@ -267,6 +267,18 @@ If we examine the clusters we should see atleast one represenative for each sero
 grep ">" clustered_fmdv.fasta
 ```
 
+## Qualimap
+
+```
+mamba install -c bioconda qualimap
+```
+
+
+## Nextflow and ViralRecon
+
+
+
+
 ## Nanopore environment
 
 For the upcoming nanopore practial we need a nanopore environment with a couple of extra tools.
@@ -303,16 +315,29 @@ mamba install -c bioconda samtools
 
 **Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
+
 If we have a number of tools to install we can install them at the same time. We now need the read aligner minimap2, and a couple of utility programs (tabix and bgzip) that are going to be needed by the next tool we will install:
 
 ```
-mamba install -c bioconda minimap2 tabix bgzip
+mamba install -c bioconda minimap2 htslib nanoplot assembly-stats ivar
 ```
 
 **Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
 
+Now we need to install one of the most important tools for nanopore sequencing - medaka. We do not install this via mamba as the developers recommend installing through pip (the package installer for python):
 
+```
+pip install medaka
+```
+
+Now lets check medaka works by typ9ng:
+
+```
+medaka_consensus
+```
+
+We are now ready to start analysing some nanopore data.
 
 
 
