@@ -302,21 +302,14 @@ However, it we try to run fastq_screen now we would get an error:
 ```
 fastq_screen
 ```
+**fastq_screen: command not found**
 
-
-
-This is because the computer does not know where to find fastq_screen. We could add the FastQ-Screen folder into our path in our profile files, but as a quick fix we will create an alias:
-
-```
-fastq_screen is aliased to `/home/youruser/Condata/FastQ-Screen/fastq_screen`
-```
+This is because the computer does not know where to find fastq_screen. We could add the FastQ-Screen folder into our PATH variable, but as a quick fix we will create an alias:
 
 ```
-fastq_screen: command not found
+alias fastq_screen="$HOME/Condata/FastQ-Screen/fastq_screen"
+```
 
-```
-https://github.com/centre-for-virus-research/CVR-Course-2026.git
-```
 
 ## Nextflow and ViralRecon
 
