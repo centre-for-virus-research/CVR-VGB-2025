@@ -329,9 +329,34 @@ perl FastQ-Screen/fastq_screen --conf fastq_screen.conf --aligner bwa barcode13.
 
 We need to open the barcode13_screen.png or barcode13_screen.txt to see the graphical and textual results - what virus is present in the sample?
 
-
 ## Nextflow and ViralRecon
 
+**What is nextflow?** Nextflow is a framework for building and running reproducible bioinformatics pipelines, allowing multi-step analyses to be executed consistently across laptops, HPC clusters, and cloud systems. Nextflow is software for orchestrating multi-step analyses. It knows which tasks depend on each other, runs independent tasks in parallel, and ensures the correct software is available for each step. However, an analysis pipeline needs to be written in Nextflow from the start. Nextflow is written primarily in Groovy, which is a language that runs on the Java Virtual Machine (JVM).
+* [https://www.nextflow.io](https://www.nextflow.io)
+
+**What is ViralRecon?** Viralrecon is an nf-core/Nextflow pipeline for analysing viral sequencing data. It automates the process of turning raw sequencing reads into consensus genomes, variant calls, and quality-control reports.
+* [https://nf-co.re/viralrecon/dev/](https://nf-co.re/viralrecon/dev/)
+
+**What is nf-core?** nf-core is a community-driven collection of high-quality bioinformatics pipelines built using Nextflow. The pipelines follow common standards for reproducibility, documentation, software management, and portability across different computing environments. A few of the most popular nf-core pipelines are:
+
+* nf-core/rnaseq -> Bulk RNA-seq analysis
+* nf-core/scrnaseq —> preprocessing of single-cell RNA-seq data (10x Genomics, CEL-Seq2, etc.)
+* nf-core/viralrecon -> Viral genome reconstruction and variant calling
+* nf-core/ampliseq -> Amplicon sequencing (e.g. ARTIC, 16S)
+* nf-core/sarek -> Human variant calling (germline and cancer)
+* nf-core/mag -> Metagenome assembly and binning
+* nf-core/taxprofiler -> Metagenomic taxonomic classification
+
+
+
+
+```
+mamba create -n viralrecon -c conda-forge -c bioconda nextflow nf-core
+```
+
+```
+conda activate viralrecon
+```
 
 
 
