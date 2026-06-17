@@ -325,6 +325,16 @@ mamba install -c bioconda minimap2 htslib nanoplot assembly-stats ivar
 **Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
 
+Not all tools are on conda:
+
+```
+install git
+
+download weeSam
+
+install pysam
+```
+
 Now we need to install one of the most important tools for nanopore sequencing - medaka. We do not install this via mamba as the developers recommend installing through pip (the package installer for python):
 
 ```
