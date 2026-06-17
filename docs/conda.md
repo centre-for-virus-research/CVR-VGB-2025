@@ -98,8 +98,20 @@ channels:
   - conda-forge
 ```
 
-We are now all set to create an environment and install some tools. So, lets a create a new conda environment called 'test-env', we will use mamba to create it as it is faster than conda:
+## Conda environments
 
+We are now all set to create an environment and install some tools. A Conda environment is a self-contained collection of software packages, libraries, and executables that is isolated from other environments on the same system - think of them as separate software workspaces.
+
+Why use environments? Different tools often need different versions of the same software. For example:
+
+* Tool A requires Python 3.10
+* Tool B requires Python 3.12
+* Tool C requires an older version of BioPython
+
+Installing everything globally can create conflicts, and mean one tool stops working. Conda environments can keep conflicting tools separate.
+
+
+So, lets a create a new conda environment called 'test-env', we will use mamba to create it as it is faster than conda:
 
 ```
 mamba create -n test-env
@@ -269,7 +281,7 @@ grep ">" clustered_fmdv.fasta
 
 ## Git and cloning - fastq_screen
 
-As amazing as conda/bioconda are, many bioinformatics tools are not available there. However, they may be available on [GitHub](https://github.com). GitHub is a web-based platform for hosting and collaborating on software projects that use Git, a version control system. 
+As amazing as conda/bioconda are, many bioinformatics tools are not available there. However, they may be available on [GitHub](https://github.com). GitHub is a web-based platform for hosting and collaborating on software projects that use Git, a version control system. In general, I would always install via conda/bioconda if it is available there, unless you want a specific version (like a new development version) that is only available via GitHub.
 
 A GitHub repository (usually called a repo) is a project folder stored on GitHub that contains files, code, documentation, and the complete history of changes made to those files. You can download a repo manually, for example, go to [https://github.com/centre-for-virus-research/CVR-Course-2026](https://github.com/centre-for-virus-research/CVR-Course-20260), click on the green "<> Code" button and then select Download ZIP. However, you can also download it via the command line using the 'git clone' command - a git command that copies an entire repository from GitHub to your computer.
 
@@ -295,20 +307,25 @@ If we now list the contents of our directory we should see a new **FastQ-Screen*
 ls
 ```
 
-In the case of Fastq screen, the program comes ready to use (there is fastq_screen executable in the folder) - but not all tools are as easy as this too install and can require compilation and/or installation of other tools that it is dependent on - hence why conda/mamba are so useful.
-
-However, it we try to run fastq_screen now we would get an error:
+In the case of Fastq screen, the program comes ready to use (there is fastq_screen executable in the folder) - but not all tools are as easy as this too install and can require compilation and/or installation of other tools that it is dependent on - hence why conda/mamba are so useful. It does however need an extra perl library to draw its pictures so lets install that:
 
 ```
-fastq_screen
+mamba install -c conda-forge perl-gdgraphm
 ```
-**fastq_screen: command not found**
 
-This is because the computer does not know where to find fastq_screen. We could add the FastQ-Screen folder into our PATH variable, but as a quick fix we will create an alias:
+As fastq_screen has not be installed into a common place, we need to tell the computer where it is (it's path) when we run it:
 
 ```
-alias fastq_screen="$HOME/Condata/FastQ-Screen/fastq_screen"
+perl FastQ-Screen/fastq_screen
 ```
+
+Now we are ready to use fastq_screen, if you list the directory contents you should see (1) a FASTQ file called **barcode13.fastq** and (2) a fastq_screen configuration file which I previously made which points to four different viral refercnes sequences (A) SARS2; (B) EMCV; (C) FLU and (D) MEASLES. We now run fastq_screen using this configuration file on barcode13.fastq:
+
+```
+perl FastQ-Screen/fastq_screen --conf fastq_screen.conf --aligner bwa barcode13.fastq
+```
+
+We need to open the barcode13_screen.png or barcode13_screen.txt to see the graphical and textual results.
 
 
 ## Nextflow and ViralRecon
