@@ -310,8 +310,9 @@ ls
 In the case of Fastq screen, the program comes ready to use (there is fastq_screen executable in the folder) - but not all tools are as easy as this too install and can require compilation and/or installation of other tools that it is dependent on - hence why conda/mamba are so useful. It does however need an extra perl library to draw its pictures so lets install that:
 
 ```
-mamba install -c conda-forge perl-gdgraphm
+mamba install -c conda-forge perl-gdgraph
 ```
+**Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
 As fastq_screen has not be installed into a common place, we need to tell the computer where it is (it's path) when we run it:
 
@@ -378,23 +379,16 @@ mamba install -c bioconda minimap2 htslib nanoplot assembly-stats ivar
 
 **Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
-
-Not all tools are on conda:
-
-```
-pip install matplotlib
-
-install git
-
-download weeSam
-
-install pysam
-```
-
 Now we need to install one of the most important tools for nanopore sequencing - medaka. We do not install this via mamba as the developers recommend installing through pip (the package installer for python):
 
 ```
 pip install medaka
+```
+
+And also one extra pip package for plotting by another tool:
+
+```
+pip install matplotlib
 ```
 
 Now lets check medaka works by typ9ng:
