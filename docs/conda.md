@@ -283,9 +283,9 @@ grep ">" clustered_fmdv.fasta
 
 As amazing as conda/bioconda are, many bioinformatics tools are not available there. However, they may be available on [GitHub](https://github.com). GitHub is a web-based platform for hosting and collaborating on software projects that use Git, a version control system. In general, I would always install via conda/bioconda if it is available there, unless you want a specific version (like a new development version) that is only available via GitHub.
 
-A GitHub repository (usually called a repo) is a project folder stored on GitHub that contains files, code, documentation, and the complete history of changes made to those files. You can download a repo manually, for example, go to [https://github.com/centre-for-virus-research/CVR-Course-2026](https://github.com/centre-for-virus-research/CVR-Course-20260), click on the green "<> Code" button and then select Download ZIP. However, you can also download it via the command line using the 'git clone' command - a git command that copies an entire repository from GitHub to your computer.
+A GitHub repository (usually called a repo) is a project folder stored on GitHub that contains files, code, documentation, and the complete history of changes made to those files. You can download a repo manually, for example, go to [https://github.com/centre-for-virus-research/CVR-Course-2026](https://github.com/centre-for-virus-research/CVR-Course-20260), click on the green "<> Code" button and then select "Download ZIP". However, you can also download it via the command line using the 'git clone' command - a git command that copies an entire repository from GitHub to your computer.
 
-First we need to install git itslef into our environment
+First we need to install git itself into our environment
 
 ```
 mamba install -c conda-forge git
@@ -301,7 +301,7 @@ In order to clone a GitHub repo we first need it's address which can be found wh
 git clone https://github.com/StevenWingett/FastQ-Screen.git
 ```
 
-If we now list the contents of our directory we should see a new **FastQ-Screen** directory:
+If we now list the contents of our directory we should see a new **FastQ-Screen** sub-directory:
 
 ```
 ls
@@ -319,13 +319,13 @@ As fastq_screen has not be installed into a common place, we need to tell the co
 perl FastQ-Screen/fastq_screen
 ```
 
-Now we are ready to use fastq_screen, if you list the directory contents you should see (1) a FASTQ file called **barcode13.fastq** and (2) a fastq_screen configuration file which I previously made which points to four different viral refercnes sequences (A) SARS2; (B) EMCV; (C) FLU and (D) MEASLES. We now run fastq_screen using this configuration file on barcode13.fastq:
+Now we are ready to use fastq_screen, if you list the directory contents you should see (1) a FASTQ file called **barcode13.fastq** and (2) a fastq_screen configuration file called **fastq_screen.conf** which I previously made which points to four different viral reference sequences (A) SARS2; (B) EMCV; (C) FLU and (D) MEASLES. We now run fastq_screen using this configuration file on barcode13.fastq:
 
 ```
 perl FastQ-Screen/fastq_screen --conf fastq_screen.conf --aligner bwa barcode13.fastq
 ```
 
-We need to open the barcode13_screen.png or barcode13_screen.txt to see the graphical and textual results.
+We need to open the barcode13_screen.png or barcode13_screen.txt to see the graphical and textual results - what virus is present in the sample?
 
 
 ## Nextflow and ViralRecon
