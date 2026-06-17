@@ -223,7 +223,93 @@ If you list the contents of the directory you should see a file called **all_fmd
 grep -c ">" all_fdmv.fasta
 ```
 
-Now lets run cd-hit, as these are nucleotide sequences we need to use the cd-hit-est script of cd-hit. We are going to cluster the sequences down using a thrshold of 95% sequence identity. cd-
+Now lets run cd-hit, as these are nucleotide sequences we need to use the **cd-hit-est** script of cd-hit. We are going to cluster the sequences down using a thrshold of 95% sequence identity, with cd-hit choosing a single sequence to representative each cluster (typically the longest sequence), and output the reduced sequences into a new fasta file:
+
+```
+cd-hit-est -i all_fmdv.fasta -o clustered_fmdv.fasta -c 0.95 -aS 1.0 -aL 0.0 -T 4
+```
+* cd-hit-est - the name of the program for cd-hit clustering of nucleotide sequneces
+* -i all_fmdv.fasta - the name of the input fasta sequence file
+* -o clustered_fmdv.fasta - the name of the output file to create
+* -c 0.95 - the clustering threshold: 0.95 = 95%
+* -aS 1.0 - when comparing two seqs, the shorter sequence must be 100% covered by the larger sequence.
+* -aL 0.0 - no coverage requirement on the longer sequence
+* -T 4 - use 4 threads
+
+When cd-hit finishes, it should report things like total seqs, longest and shortest seqs, and imporantly number of clusters. You should see something like:
+
+**923  finished        278  clusters**
+
+We can check this by counting the number of seqs in the output fasta file:
+
+```
+grep -c ">" clustered_fmdv.fasta
+```
+
+The lowest clustering threshold of cd-hit-est is 0.8 (80%) - lets re-run cd-hit at this level:
+
+```
+cd-hit-est -i all_fmdv.fasta -o clustered_fmdv.fasta -c 0.8 -aS 1.0 -aL 0.0 -T 4
+```
+
+It should result in 17 clusters. Foot-and-mouth-disease virus (FMDV) exists as seven distinct serotypes which are quite diverse at the nucleotide level, each serotype has distinct topotypes and finer grained lineages. The serotypes are:
+* O
+* A
+* C
+* Asia 1
+* SAT 1
+* SAT 2
+* SAT 3
+
+If we examine the clusters we should see atleast one represenative for each serotype:
+
+```
+grep ">" clustered_fmdv.fasta
+```
+
+## Nanopore environment
+
+For the upcoming nanopore practial we need a nanopore environment with a couple of extra tools.
+
+First lets exit our **test-env** environment:
+
+```
+conda deactivate
+```
+
+and now lets create a new enviroment called nanopore-env, this time we need to specify a certain version of python to use as one of the nanopore tools works best with that:
+
+```
+mamba create -n nanopore-env python=3.12
+```
+
+It we now get mamba to list of environments we should see both our test-env and nanopore-env (as well as the base env):
+
+```
+mamba env list
+```
+
+Now we need to activate our new nanopore-env so we can install some tools:
+
+```
+conda activate nanopore-env
+```
+
+The first tool to install is samtools - one of the best and most widely used bioinformatics tools. Although samtools is already installed on the server, we want our own specific version tied to this environment:
+
+```
+mamba install -c bioconda samtools
+```
+
+**Confirm changes: [Y/n]** -> Type **Y** then press Enter
+
+If we have a number of tools to install we can install them at the same time. We now need the read aligner minimap2, and a couple of utility programs (tabix and bgzip) that are going to be needed by the next tool we will install:
+
+```
+mamba install -c bioconda minimap2 tabix bgzip
+```
+
+**Confirm changes: [Y/n]** -> Type **Y** then press Enter
 
 
 
